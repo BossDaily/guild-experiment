@@ -1,7 +1,7 @@
 "use client";
 
 import { Flowbite } from "flowbite-react";
-import { customtheme as theme } from "../app/theme";
+import { customtheme as theme } from "./theme";
 
 
 export default function Provider({ children }) {
