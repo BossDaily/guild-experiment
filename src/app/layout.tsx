@@ -2,6 +2,8 @@ import "./globals.css";
 
 import FlowbiteProvider from "./flowbiteprovider";
 import Provider from "./provider";
+import { Flowbite } from "flowbite-react";
+import { customtheme as theme } from "../app/theme";
 
 export const metadata = {
   title: "Create Next App",
