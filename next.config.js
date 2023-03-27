@@ -11,6 +11,9 @@ const nextConfig = {
       "media.discordapp.net",
     ],
   },
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 module.exports = nextConfig;
