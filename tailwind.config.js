@@ -7,6 +7,7 @@ module.exports = {
 
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx}",
+    // flowbite
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
     "node_modules/flowbite/**/*.{js,jsx,ts,tsx}",
   ],
@@ -15,5 +16,6 @@ module.exports = {
       header: ["Helvetica", "Arial", "sans-serif"],
     },
   },
+  darkMode: 'media',
   plugins: [require("flowbite/plugin")],
 };
