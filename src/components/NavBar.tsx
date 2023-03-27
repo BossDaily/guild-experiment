@@ -16,8 +16,11 @@ export default function Component() {
   if (session) {
     return (
       <div>
-        <Navbar fluid={true}>
-          <div className="flex md:order-2">
+        <Navbar
+          fluid={true}
+          style={{ "background-color": "rgb(0 0 0 / var(--tw-bg-opacity))" }}
+        >
+          <div className="flex md:order-2" >
             <Dropdown
               arrowIcon={false}
               inline={true}
@@ -31,8 +34,9 @@ export default function Component() {
                 />
               }
               placement="bottom-end"
+              style={{ "background-color": "rgb(0 0 0 / var(--tw-bg-opacity))" }}
             >
-              <Dropdown.Header>
+              <Dropdown.Header >
                 <span className="block text-sm">
                   {session.discordUser.username}
                 </span>
@@ -45,7 +49,7 @@ export default function Component() {
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
-            <Navbar.Link href="">Home</Navbar.Link>
+            <Navbar.Link href=""><p className="text-white"></p>Home</Navbar.Link>
           </Navbar.Collapse>
         </Navbar>
       </div>
