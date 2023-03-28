@@ -13,5 +13,5 @@ export default function Component({
   name,
   id,
 }) {
-  return <Link href="/[id]">{name}</Link>;
+  return <Link href={`/experiment/${id}`}>{name}</Link>;
 }
