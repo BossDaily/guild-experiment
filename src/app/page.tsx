@@ -20,6 +20,7 @@ export default async function Home() {
             key={experiment.data.id}
             id={experiment.data.hash}
             name={experiment.data.title}
+            description={experiment.data.description}
           />
         ))}
       </div>
