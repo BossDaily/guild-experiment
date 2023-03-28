@@ -15,14 +15,16 @@ export default async function Home() {
     <main>
       <div>
         <NavBar />
-        {experiments.reverse().map((experiment) => (
-          <ExperimentCard
-            key={experiment.data.id}
-            id={experiment.data.hash}
-            name={experiment.data.title}
-            description={experiment.data.description}
-          />
-        ))}
+        <div className="grid grid-cols-4 gap-4">
+          {experiments.reverse().map((experiment) => (
+            <ExperimentCard
+              key={experiment.data.id}
+              id={experiment.data.hash}
+              name={experiment.data.title}
+              description={experiment.data.description}
+            />
+          ))}
+        </div>
       </div>
     </main>
   );
