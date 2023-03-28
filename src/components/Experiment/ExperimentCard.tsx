@@ -12,8 +12,8 @@ type Props = {
 
 export default function Component({ name, id, description }) {
   return (
-    <div>
-      <Card style={{ "background-color": "rgb(0 0 0 / var(--tw-bg-opacity))" }}>
+    <div className="max-w-sm">
+      <Card style={{ "background-color": "rgb(0 0 0 / var(--tw-bg-opacity))" }} >
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {name}
         </h5>
@@ -23,11 +23,13 @@ export default function Component({ name, id, description }) {
               className="font-normal text-gray-700 dark:text-gray-400"
               key={desc}
             >
-              desc
+              {desc}
             </p>
           ))}
         </p>
-        <Button>Guilds With this</Button>
+        <Link href={`/experiment/${id}`}>
+          <Button>Guilds With this</Button>
+        </Link>
       </Card>
     </div>
   );
