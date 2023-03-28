@@ -18,7 +18,7 @@ export default async function Home() {
         {experiments.reverse().map((experiment) => (
           <ExperimentCard
             key={experiment.data.id}
-            id={experiment.data.id}
+            id={experiment.data.hash}
             name={experiment.data.title}
           />
         ))}
