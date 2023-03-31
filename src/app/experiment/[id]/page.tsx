@@ -51,6 +51,7 @@ export default async function Home({ params }: { params: Params }) {
 
   if (guilds && typeof guilds[Symbol.iterator] === 'function') {
     await Promise.all(guilds.map(async (guild) => {
+      // @ts-ignore
       const gldCheck = await checkGuild(exp?.data.id, guild.id);
       if (gldCheck.valid == true) {
         guildsWithExperiment.push(guild);
