@@ -65,7 +65,7 @@ export default async function Home({ params }: { params: Params }) {
     <div className="bg-gray-800 rounded-lg p-4">
       <h1>{exp?.data.title}</h1>
       {
-        guildsWithExperiment.length == 0 ? (
+        guildsWithExperiment.length !== 0 ? (
       guildsWithExperiment.map((guild) => {
         return (
           <div className="bg-gray-700 rounded-lg p-4" key={guild.id}>
