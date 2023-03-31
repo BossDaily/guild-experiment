@@ -12,13 +12,14 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { APIGuild } from "discord-api-types/v10";
 import { checkGuild } from "@/lib/checkGuild";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 const experimentData: () => Promise<Exp[]> = async () => {
   const res = await fetch("https://api.rollouts.advaith.io/");
   return res.json();
 };
 
-export default async function Home({ params }) {
+export default async function Home({ params }: { params: Params }) {
   const { id } = params;
 
   const experiments = await experimentData();
