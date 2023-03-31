@@ -8,24 +8,15 @@ import {
   FilterType,
   Population,
 } from "../../../../experiment";
-import { parseFilter } from "@/lib/parseFilter";
-import { populationCheck } from "@/lib/populationCheck";
-
-const andList = new Intl.ListFormat();
-const orList = new Intl.ListFormat("en", { type: "disjunction" });
-
-interface PopulationObject {
-  s: number;
-  e: number;
-}
-
-type PopulationArray = [number, PopulationObject[]];
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { APIGuild } from "discord-api-types/v10";
+import { checkGuild } from "@/lib/checkGuild";
 
 const experimentData: () => Promise<Exp[]> = async () => {
   const res = await fetch("https://api.rollouts.advaith.io/");
   return res.json();
 };
-
 
 export default async function Home({ params }) {
   const { id } = params;
@@ -37,28 +28,48 @@ export default async function Home({ params }) {
   );
   const exp = experiments.find((experiment) => experiment.data.hash == id);
 
-  console.log(exp.rollout[3].map((pop) => populationCheck(pop, exp.data)));
+  const session = await getServerSession(authOptions);
+
+  const guildFetch = await fetch(
+    `https://discord.com/api/v10/users/@me/guilds`,
+    {
+      headers: {
+        // @ts-ignore
+        Authorization: `Bearer ${session?.accessToken}`,
+      },
+    }
+  );
+
+  const guilds: APIGuild[] = await guildFetch.json();
+
+  console.log(guilds.length);
+
+  //console.log(exp.rollout[3].map((pop) => populationCheck(pop, exp.data)));
+
+  let guildsWithExperiment: APIGuild[] = [];
+
+  if (guilds && typeof guilds[Symbol.iterator] === 'function') {
+    await Promise.all(guilds.map(async (guild) => {
+      const gldCheck = await checkGuild(exp?.data.id, guild.id);
+      if (gldCheck.valid == true) {
+        guildsWithExperiment.push(guild);
+      }
+    }));
+  }
+
+  console.log(guildsWithExperiment);
 
   return (
-    <div
-      style={{
-        background: "#2f3136",
-        marginBottom: ".5rem",
-        textAlign: "left",
-        width: "800px",
-        padding: "1rem",
-        borderRadius: "3px",
-        maxWidth: "100%",
-      }}
-      key={exp.data.id}
-      id={exp.data.id}
-    >
-      <h2 style={{ fontSize: "1.5rem", marginTop: "5px", marginBottom: "5px" }}>
-        <a href={`#${exp.data.id}`} className="text-white hover:decoration-1">
-          {exp.data.title}
-        </a>
-      </h2>
-      <p style={{ fontSize: ".9rem" }}>{exp.data.id}</p>
+    <div className="bg-gray-800 rounded-lg p-4">
+      {guildsWithExperiment.map((guild) => {
+        return (
+          <div className="bg-gray-700 rounded-lg p-4" key={guild.id}>
+            <div className="text-white text-2xl">{guild.name}</div>
+            <div className="text-white text-lg">{guild.id}</div>
+          </div>
+        );
+      })}
+
       <div>hi</div>
     </div>
   );
