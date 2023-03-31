@@ -13,12 +13,14 @@ type Props = {
 export default function Component({ name, id, description }: { name: string, id: string, description: string}) {
   return (
     <div className="max-w-sm">
-      <Card style={{ "background-color": "rgb(0 0 0 / var(--tw-bg-opacity))" }} >
+      <Card style={{ "backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))" }} >
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {name}
         </h5>
         <p className="font-normal text-gray-700 dark:text-gray-400">
-          {description.map((desc) => (
+          {
+            // @ts-ignore
+          description.map((desc) => (
             <p
               className="font-normal text-gray-700 dark:text-gray-400"
               key={desc}
