@@ -26,7 +26,10 @@ export default function Component() {
               inline={true}
               label={
                 <Image
-                  src={session.discordUser.image_url}
+                  src={
+                    // @ts-ignore
+                    session.discordUser.image_url
+                  }
                   className="mr-5 rounded-full"
                   alt="Flowbite Logo"
                   width={52}
@@ -38,10 +41,17 @@ export default function Component() {
             >
               <Dropdown.Header >
                 <span className="block text-sm">
-                  {session.discordUser.username}
+                {
+                    // @ts-ignore
+                  session.discordUser.email
+                  }
                 </span>
                 <span className="block truncate text-sm font-medium">
-                  {session.discordUser.email}
+                  
+                  {
+                    // @ts-ignore
+                  session.discordUser.email
+                  }
                 </span>
               </Dropdown.Header>
               <Dropdown.Item onClick={() => signOut()}>Sign out</Dropdown.Item>
