@@ -16,7 +16,9 @@ export default async function Home() {
       <div>
         <NavBar />
         <div className="grid grid-cols-4 gap-4">
-          {experiments.reverse().map((experiment) => (
+          {
+            // @ts-ignore
+          experiments.reverse().map((experiment) => (
             <ExperimentCard
               key={experiment.data.id}
               id={experiment.data.hash}
