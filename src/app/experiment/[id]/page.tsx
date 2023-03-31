@@ -63,15 +63,22 @@ export default async function Home({ params }: { params: Params }) {
 
   return (
     <div className="bg-gray-800 rounded-lg p-4">
-      {guildsWithExperiment.map((guild) => {
+      <h1>{exp?.data.title}</h1>
+      {
+        guildsWithExperiment.length == 0 ? (
+      guildsWithExperiment.map((guild) => {
         return (
           <div className="bg-gray-700 rounded-lg p-4" key={guild.id}>
             <div className="text-white text-2xl">{guild.name}</div>
             <div className="text-white text-lg">{guild.id}</div>
           </div>
         );
-      })}
-
+      }) ) : (
+        <div className="bg-gray-700 rounded-lg p-4">
+          <div className="text-white text-2xl">No guilds with this experiment</div>
+          </div>
+          )}
+    
       <div>hi</div>
     </div>
   );
