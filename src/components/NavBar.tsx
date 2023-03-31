@@ -18,7 +18,7 @@ export default function Component() {
       <div>
         <Navbar
           fluid={true}
-          style={{ "background-color": "rgb(0 0 0 / var(--tw-bg-opacity))" }}
+          style={{ "backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))" }}
         >
           <div className="flex md:order-2" >
             <Dropdown
@@ -34,7 +34,7 @@ export default function Component() {
                 />
               }
               placement="bottom-end"
-              style={{ "background-color": "rgb(0 0 0 / var(--tw-bg-opacity))" }}
+              style={{ "backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))" }}
             >
               <Dropdown.Header >
                 <span className="block text-sm">
