@@ -46,13 +46,6 @@ export default function Component() {
                   session.discordUser.email
                   }
                 </span>
-                <span className="block truncate text-sm font-medium">
-                  
-                  {
-                    // @ts-ignore
-                  session.discordUser.email
-                  }
-                </span>
               </Dropdown.Header>
               <Dropdown.Item onClick={() => signOut()}>Sign out</Dropdown.Item>
             </Dropdown>

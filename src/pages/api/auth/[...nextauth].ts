@@ -13,7 +13,7 @@ export const authOptions = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET,
       authorization: {
         params: {
-          scope: "identify guilds email connections",
+          scope: "identify guilds",
         },
       },
       profile(profile) {
