@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar";
 import ExperimentCard from "@/components/Experiment/ExperimentCard";
 
 const experimentData = async () => {
-  const res = await fetch("https://api.rollouts.advaith.io/");
+  const res = await fetch("https://api.rollouts.advaith.io/", { next: {revalidate: 100 }});
 
   return res.json();
 };
@@ -15,7 +15,7 @@ export default async function Home() {
     <main>
       <div>
         <NavBar />
-        <div className="grid grid-cols-4 gap-4">
+        <div className="justify-center grid grid-rows-1 gap-4 md:grid-cols-4 px-4">
           {
             // @ts-ignore
           experiments.reverse().map((experiment) => (
