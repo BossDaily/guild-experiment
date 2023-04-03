@@ -29,6 +29,7 @@ export default async function Home({ params }: { params: Params }) {
   );
   const exp = experiments.find((experiment) => experiment.data.hash == id);
 
+
   const session = await getServerSession(authOptions);
 
   const guildFetch = await fetch(
@@ -53,9 +54,13 @@ export default async function Home({ params }: { params: Params }) {
     await Promise.all(guilds.map(async (guild) => {
       // @ts-ignore
       const gldCheck = await checkGuild(exp?.data.id, guild.id);
+      // @ts-ignore
+      if(!gldCheck) return;
+      // @ts-ignore
       if (gldCheck.valid == true) {
         guildsWithExperiment.push(guild);
       }
+      
     }));
   }
 
@@ -64,7 +69,8 @@ export default async function Home({ params }: { params: Params }) {
   return (
     <div className="bg-gray-800 rounded-lg p-4">
       <h1>{exp?.data.title}</h1>
-      {
+      <div className="grid grid-cols-4 gap-4">
+        {
         guildsWithExperiment.length !== 0 ? (
       guildsWithExperiment.map((guild) => {
         return (
@@ -78,6 +84,8 @@ export default async function Home({ params }: { params: Params }) {
           <div className="text-white text-2xl">No guilds with this experiment</div>
           </div>
           )}
+      </div>
+      
     
       <div>hi</div>
     </div>
