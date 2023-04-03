@@ -55,8 +55,6 @@ export default async function Home({ params }: { params: Params }) {
       // @ts-ignore
       const gldCheck = await checkGuild(exp?.data.id, guild.id);
       // @ts-ignore
-      if(!gldCheck) return;
-      // @ts-ignore
       if (gldCheck.valid == true) {
         guildsWithExperiment.push(guild);
       }
