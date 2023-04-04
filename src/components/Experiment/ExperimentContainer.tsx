@@ -2,14 +2,14 @@
 
 import ExperimentCard from "@/components/Experiment/ExperimentCard";
 import { Experiment } from "../../../experiment";
-import { useState } from "react";
+import React, { useState } from "react";
 import { TextInput } from "flowbite-react";
 
 export default function Home({ exp }: { exp: Experiment[] }) {
   const experiments = exp;
 
   const [inputText, setInputText] = useState("");
-  let inputHandler = (e) => {
+  let inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     //convert input text to lower case
     const lowerCase = e.target.value.toLowerCase();
     setInputText(lowerCase);
