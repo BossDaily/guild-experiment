@@ -1,9 +1,17 @@
+{
+  /* @ts-expect-error Async Server Component */
+}
+
 import Image from "next/image";
 import NavBar from "../components/NavBar";
 import ExperimentCard from "@/components/Experiment/ExperimentCard";
+import ExperimentContainer from "@/components/Experiment/ExperimentContainer";
+import { Experiment } from "../../experiment";
 
-const experimentData = async () => {
-  const res = await fetch("https://api.rollouts.advaith.io/", { next: {revalidate: 100 }});
+const experimentData = async (): Promise<Experiment[]> => {
+  const res = await fetch("https://api.rollouts.advaith.io/", {
+    next: { revalidate: 100 },
+  });
 
   return res.json();
 };
@@ -15,18 +23,8 @@ export default async function Home() {
     <main>
       <div>
         <NavBar />
-        <div className="justify-center grid grid-rows-1 gap-4 md:grid-cols-4 px-4">
-          {
-            // @ts-ignore
-          experiments.reverse().map((experiment) => (
-            <ExperimentCard
-              key={experiment.data.id}
-              id={experiment.data.hash}
-              name={experiment.data.title}
-              description={experiment.data.description}
-            />
-          ))}
-        </div>
+        <ExperimentContainer exp={experiments} />
+        <div className="justify-center grid grid-rows-1 gap-4 md:grid-cols-4 px-4"></div>
       </div>
     </main>
   );
