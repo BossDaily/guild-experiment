@@ -1,7 +1,3 @@
-{
-  /* @ts-expect-error Async Server Component */
-}
-
 import Image from "next/image";
 import NavBar from "../components/NavBar";
 import ExperimentCard from "@/components/Experiment/ExperimentCard";
