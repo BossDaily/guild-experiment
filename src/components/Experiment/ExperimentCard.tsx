@@ -12,7 +12,7 @@ type Props = {
 
 export default function Component({ name, id, description }: { name: string, id: number, description: string[]}) {
   return (
-    <div className="max-w-sm">
+    <div className="max-w-xl">
       <Card style={{ "backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))" }} >
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {name}
