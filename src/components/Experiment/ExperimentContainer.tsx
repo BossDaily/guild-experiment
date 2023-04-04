@@ -23,6 +23,7 @@ export default function Home({ exp }: { exp: Experiment[] }) {
   return (
     <div className="flex flex-col">
       <div className="self-center flex-none max-w-md pb-4">
+        { /* @ts-ignore */}
         <TextInput onChange={inputHandler} className="" icon={MagnifyingGlassIcon} />
       </div>
       <div className="justify-center grid grid-rows-1 gap-4 md:grid-cols-2 lg:grid-cols-4 px-4">
