@@ -12,8 +12,8 @@ type Props = {
 
 export default function Component({ name, id, description }: { name: string, id: number, description: string[]}) {
   return (
-    <div className="max-w-xl">
-      <Card style={{ "backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))" }} >
+    <div className="max-w-xl ">
+      <Card style={{ "backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))" }} className="hover:shadow-cornflower-blue-400 hover:shadow-xl">
         <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           {name}
         </h5>
@@ -30,7 +30,7 @@ export default function Component({ name, id, description }: { name: string, id:
           ))}
         </p>
         <Link href={`/experiment/${id}`}>
-          <Button>Guilds With this</Button>
+          <Button className="bg-corn" style={{'backgroundColor': 'rgb(68 69 231)'}}>Guilds With this</Button>
         </Link>
       </Card>
     </div>
