@@ -8,6 +8,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
+export const fetchCache = 'force-no-store'
 
 export async function generateMetadata(): Promise<Metadata> {
   const session = await getServerSession(authOptions);
@@ -23,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 const experimentData = async (): Promise<Experiment[]> => {
   const res = await fetch("https://api.rollouts.advaith.io/", {
-    next: { revalidate: 100 },
+    next: { revalidate: 10 },
   });
 
   return res.json();
