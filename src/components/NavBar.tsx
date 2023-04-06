@@ -18,9 +18,9 @@ export default function Component() {
       <div>
         <Navbar
           fluid={true}
-          style={{ "backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))" }}
+          style={{ backgroundColor: "rgb(35 39 42 / var(--tw-bg-opacity))" }}
         >
-          <div className="flex md:order-2" >
+          <div className="flex md:order-2">
             <Dropdown
               arrowIcon={false}
               inline={true}
@@ -37,13 +37,13 @@ export default function Component() {
                 />
               }
               placement="bottom-end"
-              style={{ "backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))" }}
+              style={{ backgroundColor: "rgb(0 0 0 / var(--tw-bg-opacity))" }}
             >
-              <Dropdown.Header >
+              <Dropdown.Header>
                 <span className="block text-sm">
-                {
+                  {
                     // @ts-ignore
-                  session.discordUser.email
+                    session.discordUser.email
                   }
                 </span>
               </Dropdown.Header>
@@ -52,7 +52,9 @@ export default function Component() {
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
-            <Navbar.Link href=""><p className="text-white"></p>Home</Navbar.Link>
+            <Navbar.Link href="">
+              <p className="text-white"></p>Home
+            </Navbar.Link>
           </Navbar.Collapse>
         </Navbar>
       </div>
@@ -60,7 +62,10 @@ export default function Component() {
   } else {
     return (
       <div>
-        <Navbar fluid={true}>
+        <Navbar
+          fluid={true}
+          style={{ backgroundColor: "rgb(35 39 42 / var(--tw-bg-opacity))" }}
+        >
           <div className="flex md:order-2">
             <Dropdown
               arrowIcon={false}

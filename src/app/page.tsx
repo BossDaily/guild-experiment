@@ -34,7 +34,7 @@ export default async function Home() {
   const experiments = await experimentData();
 
   return (
-    <main className="bg-cornflower-blue-950">
+    <main className="bg-shark-900">
       <div className="">
         <NavBar />
         <ExperimentContainer exp={experiments} />

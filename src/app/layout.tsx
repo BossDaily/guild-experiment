@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-zinc-900">
+      <body className="bg-shark-900">
         <FlowbiteProvider>
           <Provider>{children}</Provider>
         </FlowbiteProvider>
