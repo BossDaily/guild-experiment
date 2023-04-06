@@ -20,7 +20,7 @@ export default function Component() {
           fluid={true}
           style={{ backgroundColor: "rgb(35 39 42 / var(--tw-bg-opacity))" }}
         >
-          <div className="flex md:order-2">
+          <div className="flex md:order-2" >
             <Dropdown
               arrowIcon={false}
               inline={true}
@@ -37,9 +37,10 @@ export default function Component() {
                 />
               }
               placement="bottom-end"
-              style={{ backgroundColor: "rgb(0 0 0 / var(--tw-bg-opacity))" }}
+              color="red"
+              style={{ backgroundColor: "rgb(0 0 0)" }}
             >
-              <Dropdown.Header>
+              <Dropdown.Header >
                 <span className="block text-sm">
                   {
                     // @ts-ignore
@@ -47,7 +48,7 @@ export default function Component() {
                   }
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item onClick={() => signOut()}>Sign out</Dropdown.Item>
+              <Dropdown.Item onClick={() => signOut()} >Sign out</Dropdown.Item>
             </Dropdown>
             <Navbar.Toggle />
           </div>
@@ -70,6 +71,7 @@ export default function Component() {
             <Dropdown
               arrowIcon={false}
               inline={true}
+              style={{ backgroundColor: "rgb(0 0 0 / var(--tw-bg-opacity))" }}
               label={
                 <p onClick={() => signIn()} className="text-white">
                   Sign in

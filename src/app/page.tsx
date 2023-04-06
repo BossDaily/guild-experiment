@@ -34,8 +34,8 @@ export default async function Home() {
   const experiments = await experimentData();
 
   return (
-    <main className="bg-shark-900">
-      <div className="">
+    <main>
+      <div>
         <NavBar />
         <ExperimentContainer exp={experiments} />
         <div className="justify-center grid grid-rows-1 gap-4 md:grid-cols-4 px-4"></div>
