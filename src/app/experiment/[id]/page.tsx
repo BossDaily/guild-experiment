@@ -14,6 +14,7 @@ import { APIGuild } from "discord-api-types/v10";
 import { checkGuild } from "@/lib/checkGuild";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import NavBar from "@/components/NavBar";
+import GuildCard from "@/components/Guild/GuildCard";
 
 const experimentData: () => Promise<Exp[]> = async () => {
   const res = await fetch("https://api.rollouts.advaith.io/");
@@ -70,14 +71,16 @@ export default async function Home({ params }: { params: Params }) {
       <NavBar />
       <div className="bg-gray-800 rounded-lg p-4">
         <h1>{exp?.data.title}</h1>
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           {guildsWithExperiment.length !== 0 ? (
             guildsWithExperiment.map((guild) => {
               return (
-                <div className="bg-gray-700 rounded-lg p-4" key={guild.id}>
-                  <div className="text-white text-2xl">{guild.name}</div>
-                  <div className="text-white text-lg">{guild.id}</div>
-                </div>
+                <GuildCard
+                  key={guild.id}
+                  guildIcon={guild.icon}
+                  guildName={guild.name}
+                  guildId={guild.id}
+                />
               );
             })
           ) : (
