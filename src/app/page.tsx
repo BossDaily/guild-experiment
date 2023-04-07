@@ -24,7 +24,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 const experimentData = async (): Promise<Experiment[]> => {
   const res = await fetch("https://api.rollouts.advaith.io/", {
-    next: { revalidate: 10 },
+    next: { revalidate: 60 },
   });
 
   return res.json();
