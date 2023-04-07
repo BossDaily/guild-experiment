@@ -8,7 +8,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import GuildCard from "./GuildCard";
 import { APIGuild } from "discord-api-types/v10";
 
-export default function Home({ glds }: { gld: APIGuild[] }) {
+export default function Home({ glds }: { glds: APIGuild[] }) {
   
 
   const [inputText, setInputText] = useState("");
@@ -19,7 +19,7 @@ export default function Home({ glds }: { gld: APIGuild[] }) {
   };
 
   const gldsFiltered = glds.filter((gld) => {
-    return gld.data.title.toLowerCase().includes(inputText);
+    return gld.name.toLowerCase().includes(inputText);
   });
 
   return (
@@ -37,7 +37,7 @@ export default function Home({ glds }: { gld: APIGuild[] }) {
       <div className="justify-center grid grid-rows-1 gap-4 md:grid-cols-2 lg:grid-cols-4 px-4">
         {
           // @ts-ignore
-          gldsFiltered.reverse().map((gld: APIGuild) => (
+          gldsFiltered.reverse().map((gld) => (
             <GuildCard
               key={gld.id}
               guildIcon={gld.icon}
