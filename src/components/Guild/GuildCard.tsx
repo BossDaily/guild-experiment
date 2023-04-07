@@ -10,17 +10,13 @@ import { Button } from "flowbite-react";
 type Props = {
   guildId: String;
   guildIcon: String | null;
-  userDiscriminator: String | number;
   guildName: String;
-  guildSetup: Boolean;
 };
 
 export default function GuildCard({
   guildIcon,
   guildId,
-  userDiscriminator,
   guildName,
-  guildSetup,
 }: Props) {
   return (
     <Link href={`/dashboard/${guildId}`}>
@@ -29,14 +25,12 @@ export default function GuildCard({
           <GuildIconLG
             guildIcon={guildIcon}
             guildId={guildId}
-            userDiscriminator={userDiscriminator}
           />
         </div>
         <span className="absolute top-9 left-28 items-center justify-center">
           <GuildIcon
             guildIcon={guildIcon}
             guildId={guildId}
-            userDiscriminator={userDiscriminator}
           />
         </span>
         <div className="flex flex-row justify-start">
