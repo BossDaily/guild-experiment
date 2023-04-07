@@ -5,7 +5,6 @@ import { ReactNode } from "react";
 import GuildIcon from "./GuildIcon";
 import Link from "next/link";
 import GuildIconLG from "./GuildIconLG";
-import { Button } from "flowbite-react";
 
 type Props = {
   guildId: String;
@@ -37,9 +36,6 @@ export default function GuildCard({
           <h1 className="text-white flex-none font-helvetica font-bold text-xl px-2 pb-2">
             {guildName}
           </h1>
-          <div className="flex-none">
-            <Button href={`/dashboard/${guildId}`}>Manage</Button>
-          </div>
         </div>
       </div>
     </Link>
