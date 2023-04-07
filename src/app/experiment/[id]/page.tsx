@@ -13,6 +13,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { APIGuild } from "discord-api-types/v10";
 import { checkGuild } from "@/lib/checkGuild";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+import NavBar from "@/components/NavBar";
 
 const experimentData: () => Promise<Exp[]> = async () => {
   const res = await fetch("https://api.rollouts.advaith.io/");
@@ -28,7 +29,6 @@ export default async function Home({ params }: { params: Params }) {
     (experiment) => experiment.data.hash == id
   );
   const exp = experiments.find((experiment) => experiment.data.hash == id);
-
 
   const session = await getServerSession(authOptions);
 
@@ -50,42 +50,47 @@ export default async function Home({ params }: { params: Params }) {
 
   let guildsWithExperiment: APIGuild[] = [];
 
-  if (guilds && typeof guilds[Symbol.iterator] === 'function') {
-    await Promise.all(guilds.map(async (guild) => {
-      // @ts-ignore
-      const gldCheck = await checkGuild(exp?.data.id, guild.id);
-      // @ts-ignore
-      if (gldCheck.valid == true) {
-        guildsWithExperiment.push(guild);
-      }
-      
-    }));
+  if (guilds && typeof guilds[Symbol.iterator] === "function") {
+    await Promise.all(
+      guilds.map(async (guild) => {
+        // @ts-ignore
+        const gldCheck = await checkGuild(exp?.data.id, guild.id);
+        // @ts-ignore
+        if (gldCheck.valid == true) {
+          guildsWithExperiment.push(guild);
+        }
+      })
+    );
   }
 
   console.log(guildsWithExperiment);
 
   return (
-    <div className="bg-gray-800 rounded-lg p-4">
-      <h1>{exp?.data.title}</h1>
-      <div className="grid grid-cols-4 gap-4">
-        {
-        guildsWithExperiment.length !== 0 ? (
-      guildsWithExperiment.map((guild) => {
-        return (
-          <div className="bg-gray-700 rounded-lg p-4" key={guild.id}>
-            <div className="text-white text-2xl">{guild.name}</div>
-            <div className="text-white text-lg">{guild.id}</div>
-          </div>
-        );
-      }) ) : (
-        <div className="bg-gray-700 rounded-lg p-4">
-          <div className="text-white text-2xl">No guilds with this experiment</div>
-          </div>
+    <div>
+      <NavBar />
+      <div className="bg-gray-800 rounded-lg p-4">
+        <h1>{exp?.data.title}</h1>
+        <div className="grid grid-cols-4 gap-4">
+          {guildsWithExperiment.length !== 0 ? (
+            guildsWithExperiment.map((guild) => {
+              return (
+                <div className="bg-gray-700 rounded-lg p-4" key={guild.id}>
+                  <div className="text-white text-2xl">{guild.name}</div>
+                  <div className="text-white text-lg">{guild.id}</div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="bg-gray-700 rounded-lg p-4">
+              <div className="text-white text-2xl">
+                No guilds with this experiment
+              </div>
+            </div>
           )}
+        </div>
+
+        <div>hi</div>
       </div>
-      
-    
-      <div>hi</div>
     </div>
   );
 }
