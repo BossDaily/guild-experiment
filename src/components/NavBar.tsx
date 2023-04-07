@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
 import { authOptions } from "../pages/api/auth/[...nextauth]";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 type Props = {
   children: ReactNode;
@@ -53,9 +54,11 @@ export default function Component() {
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
-            <Navbar.Link href="">
-              <p className="text-white"></p>Home
+            <Navbar.Link>
+              <Link href="/" className="">Home</Link>
             </Navbar.Link>
+            
+            
           </Navbar.Collapse>
         </Navbar>
       </div>
