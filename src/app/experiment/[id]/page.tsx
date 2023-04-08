@@ -15,6 +15,7 @@ import { checkGuild } from "@/lib/checkGuild";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import NavBar from "@/components/NavBar";
 import GuildCard from "@/components/Guild/GuildCard";
+import GuildContainer from "@/components/Guild/GuildContainer";
 
 const experimentData: () => Promise<Exp[]> = async () => {
   const res = await fetch("https://api.rollouts.advaith.io/");
@@ -64,35 +65,24 @@ export default async function Home({ params }: { params: Params }) {
     );
   }
 
-  console.log(guildsWithExperiment);
-
   return (
     <div>
       <NavBar />
-      <div className="bg-gray-800 rounded-lg p-4">
+      <div className="">
         <h1>{exp?.data.title}</h1>
-        <div className="grid grid-cols-3 gap-4">
+        <div className="">
           {guildsWithExperiment.length !== 0 ? (
-            guildsWithExperiment.map((guild) => {
-              return (
-                <GuildCard
-                  key={guild.id}
-                  guildIcon={guild.icon}
-                  guildName={guild.name}
-                  guildId={guild.id}
-                />
-              );
-            })
+            <GuildContainer glds={guildsWithExperiment} />
           ) : (
             <div className="bg-gray-700 rounded-lg p-4">
-              <div className="text-white text-2xl">
+              <div className="text-white text-2xl overflow-hidden">
                 No guilds with this experiment
               </div>
             </div>
           )}
         </div>
 
-        <div>hi</div>
+        <div>{guildsWithExperiment.length}/{guilds.length}</div>
       </div>
     </div>
   );
