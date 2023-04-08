@@ -59,8 +59,8 @@ export default async function Home({ params }: { params: Params }) {
     typeof expInfo.rollout.populations[Symbol.iterator] === "function"
   ) {
     await Promise.all(
-      expInfo.rollout.populations.map(async (pop) => {
-        pop.filters.map((feat) => {
+      expInfo.rollout.populations.map(async (pop: any) => {
+        pop.filters.map((feat: any) => {
           if (feat.type == "feature") {
             if (feat.features[0] !== "COMMUNITY")
               expFeatures.push(feat.features[0]);
