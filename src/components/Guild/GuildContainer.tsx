@@ -34,7 +34,7 @@ export default function Home({ glds }: { glds: APIGuild[] }) {
           style={{ backgroundColor: "rgb(0 0 0 / var(--tw-bg-opacity))" }}
         />
       </div>
-      <div className="justify-center grid grid-rows-1 gap-4 md:grid-cols-2 lg:grid-cols-4 px-4">
+      <div className="justify-center grid grid-rows-1 gap-4 md:grid-cols-2 lg:grid-cols-3 px-4">
         {
           // @ts-ignore
           gldsFiltered.reverse().map((gld) => (
