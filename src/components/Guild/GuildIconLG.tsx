@@ -17,7 +17,7 @@ export default function GuildIconLG({
       {guildIcon ? (
         <Image
           src={`https://cdn.discordapp.com/icons/${guildId}/${guildIcon}.png`}
-          layout="fill"
+          fill
           className="blur-md rounded-xl"
           alt="Guild Icon"
         />
@@ -27,6 +27,7 @@ export default function GuildIconLG({
             Math.random() * 7
           )}.png`}
           className="blur-md"
+          fill
           alt="Default Guild Icon"
         />
       )}
