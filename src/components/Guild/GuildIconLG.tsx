@@ -24,7 +24,7 @@ export default function GuildIconLG({
       ) : (
         <Image
           src={`https://cdn.discordapp.com/embed/avatars/${Math.floor(
-            Math.random() * 7
+            Math.random() * 6
           )}.png`}
           className="blur-md"
           fill

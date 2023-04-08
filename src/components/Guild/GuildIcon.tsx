@@ -25,7 +25,7 @@ export default function GuildIcon({
       ) : (
         <Image
           src={`https://cdn.discordapp.com/embed/avatars/${Math.floor(
-            Math.random() * 7
+            Math.random() * 6
           )}.png`}
           width={96}
           height={96}

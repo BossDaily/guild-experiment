@@ -16,6 +16,8 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import NavBar from "@/components/NavBar";
 import GuildCard from "@/components/Guild/GuildCard";
 import GuildContainer from "@/components/Guild/GuildContainer";
+import { Button, Dropdown } from "flowbite-react";
+import Client from "@/components/Client";
 
 const experimentData: () => Promise<Exp[]> = async () => {
   const res = await fetch("https://api.rollouts.advaith.io/");
@@ -46,11 +48,30 @@ export default async function Home({ params }: { params: Params }) {
 
   const guilds: APIGuild[] = await guildFetch.json();
 
-  console.log(guilds.length);
+  const expFetch = await fetch(
+    `https://experiments.dscrd.workers.dev/experiments/${exp?.data.id}`
+  );
+  const expInfo = await expFetch.json();
+  let expFeatures: any[] = [];
 
-  //console.log(exp.rollout[3].map((pop) => populationCheck(pop, exp.data)));
+  if (
+    "rollout" in expInfo &&
+    typeof expInfo.rollout.populations[Symbol.iterator] === "function"
+  ) {
+    await Promise.all(
+      expInfo.rollout.populations.map(async (pop) => {
+        pop.filters.map((feat) => {
+          if (feat.type == "feature") {
+            if (feat.features[0] !== "COMMUNITY")
+              expFeatures.push(feat.features[0]);
+          }
+        });
+      })
+    );
+  }
 
   let guildsWithExperiment: APIGuild[] = [];
+  let guildMightHaveExperiment: APIGuild[] = [];
 
   if (guilds && typeof guilds[Symbol.iterator] === "function") {
     await Promise.all(
@@ -59,17 +80,28 @@ export default async function Home({ params }: { params: Params }) {
         const gldCheck = await checkGuild(exp?.data.id, guild.id);
         // @ts-ignore
         if (gldCheck.valid == true) {
-          guildsWithExperiment.push(guild);
+          guildMightHaveExperiment.push(guild);
+          if (expFeatures.length == 0) {
+            guildsWithExperiment.push(guild);
+          } else if (
+            guild.features.some((feat) => expFeatures.includes(feat))
+          ) {
+            guildsWithExperiment.push(guild);
+          }
         }
       })
     );
   }
 
+  console.log(expFeatures);
+  console.log(guilds.length);
   return (
     <div>
       <NavBar />
-      <div className="">
-        <h1>{exp?.data.title}</h1>
+      <div className="flex flex-col gap-4">
+        <h2 className="self-center text-white font-bold text-4xl">
+          {exp?.data.title}
+        </h2>
         <div className="">
           {guildsWithExperiment.length !== 0 ? (
             <GuildContainer glds={guildsWithExperiment} />
@@ -81,8 +113,23 @@ export default async function Home({ params }: { params: Params }) {
             </div>
           )}
         </div>
+        <div className="self-center">
+          <Client>
+          {guildMightHaveExperiment.length !== 0 ? (
+            <GuildContainer glds={guildMightHaveExperiment} />
+          ) : (
+            <div className="bg-gray-700 rounded-lg p-4">
+              <div className="text-white text-2xl overflow-hidden">
+                No guilds with this experiment
+              </div>
+            </div>
+          )}
+          </Client>
+        </div>
 
-        <div>{guildsWithExperiment.length}/{guilds.length}</div>
+        <h2 className="self-center text-white font-bold text-4xl">
+          {guildsWithExperiment.length}/{guilds.length}
+        </h2>
       </div>
     </div>
   );

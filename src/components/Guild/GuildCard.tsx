@@ -14,7 +14,7 @@ type Props = {
 
 export default function GuildCard({ guildIcon, guildId, guildName }: Props) {
   return (
-    <div className="h-56 flex gap-4 flex-col w-72 sm:w-80 bg-black rounded-xl relative overflow-hidden">
+    <div className="h-56 flex gap-4 flex-col w-72 sm:w-80 bg-black rounded-xl relative overflow-hidden hover:shadow-cornflower-blue-400 hover:shadow-xl">
       <div className="py-2 pl-2 relative items-center justify-end overflow-hidden w-full h-full rounded-xl">
         <GuildIconLG guildIcon={guildIcon} guildId={guildId} />
       </div>

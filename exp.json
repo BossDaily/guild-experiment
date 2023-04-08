@@ -1,0 +1,71 @@
+{
+  "id": "2021-12_soundboard",
+  "defaultConfig": {
+    "allowSoundboard": false,
+    "showVolumeEducationTooltip": false
+  },
+  "rollout": {
+    "revision": 7,
+    "populations": [
+      {
+        "position": [
+          {
+            "treatment": "Treatment 1: Soundboard on",
+            "bucket": 1,
+            "rollouts": [{ "start": 0, "end": 10000 }]
+          }
+        ],
+        "filters": [{ "type": "feature", "features": ["SOUNDBOARD"] }]
+      },
+      {
+        "position": [
+          {
+            "treatment": "None",
+            "bucket": -1,
+            "rollouts": [{ "start": 0, "end": 10000 }]
+          }
+        ],
+        "filters": [{ "type": "feature", "features": ["COMMUNITY"] }]
+      },
+      {
+        "position": [
+          {
+            "treatment": "None",
+            "bucket": -1,
+            "rollouts": [
+              { "start": 0, "end": 2900 },
+              { "start": 3900, "end": 10000 }
+            ]
+          },
+          {
+            "treatment": "Treatment 3: Control (soundboard off)",
+            "bucket": 3,
+            "rollouts": [{ "start": 2900, "end": 3400 }]
+          },
+          {
+            "treatment": "Treatment 4: Soundboard on w/ volume tooltip",
+            "bucket": 4,
+            "rollouts": [{ "start": 3400, "end": 3900 }]
+          }
+        ],
+        "filters": [
+          { "type": "member_count", "range": { "start": 1, "end": 50 } }
+        ]
+      }
+    ],
+    "overrides": [],
+    "overrides_formatted": []
+  },
+  "hash": 2433109164,
+  "creationDate": 1642644528,
+  "type": "guild",
+  "title": "Soundboard",
+  "description": [
+    "Control",
+    "Treatment 1: Soundboard on",
+    "Treatment 2: Soundboard on",
+    "Treatment 3: Control (soundboard off)",
+    "Treatment 4: Soundboard on w/ volume tooltip"
+  ],
+  "buckets": [0, 1, 2, 3, 4]
+}
