@@ -17,7 +17,7 @@ import NavBar from "@/components/NavBar";
 import GuildCard from "@/components/Guild/GuildCard";
 import GuildContainer from "@/components/Guild/GuildContainer";
 import { Button, Dropdown } from "flowbite-react";
-import Client from "@/components/Client";
+import Extra from "@/components/ExtraGuilds";
 
 const experimentData: () => Promise<Exp[]> = async () => {
   const res = await fetch("https://api.rollouts.advaith.io/");
@@ -114,7 +114,7 @@ export default async function Home({ params }: { params: Params }) {
           )}
         </div>
         <div className="self-center">
-          <Client>
+          <Extra>
           {guildMightHaveExperiment.length !== 0 ? (
             <GuildContainer glds={guildMightHaveExperiment} />
           ) : (
@@ -124,7 +124,7 @@ export default async function Home({ params }: { params: Params }) {
               </div>
             </div>
           )}
-          </Client>
+          </Extra>
         </div>
 
         <h2 className="self-center text-white font-bold text-4xl">
