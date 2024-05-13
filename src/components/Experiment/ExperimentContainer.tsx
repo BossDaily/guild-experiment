@@ -38,7 +38,7 @@ export default function Home({ exp }: { exp: Experiment[] }) {
           expFiltered.reverse().map((experiment) => (
             <ExperimentCard
               key={experiment.data.id}
-              id={experiment.data.hash}
+              id={experiment.data.id}
               name={experiment.data.title}
               description={experiment.data.description}
             />

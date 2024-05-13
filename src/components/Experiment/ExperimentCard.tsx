@@ -10,7 +10,7 @@ type Props = {
   children: ReactNode;
 };
 
-export default function Component({ name, id, description }: { name: string, id: number, description: string[]}) {
+export default function Component({ name, id, description }: { name: string, id: string, description: string[]}) {
   return (
     <div className="max-w-xl ">
       <Card style={{ "backgroundColor": "rgb(0 0 0 / var(--tw-bg-opacity))" }} className="hover:shadow-cornflower-blue-400 hover:shadow-xl">
