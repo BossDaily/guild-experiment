@@ -10,7 +10,8 @@ import {
 } from "../../../../experiment";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { APIGuild } from "discord-api-types/v10";
+import { Routes, type APIUser, type APIGuild } from "discord-api-types/v10";
+import { REST } from "@discordjs/rest";
 import { checkGuild } from "@/lib/checkGuild";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import NavBar from "@/components/NavBar";
@@ -26,6 +27,7 @@ const experimentData: () => Promise<Exp[]> = async () => {
 
 export default async function Home({ params }: { params: Params }) {
   const { id } = params;
+  
 
   const experiments = await experimentData();
 
@@ -36,22 +38,31 @@ export default async function Home({ params }: { params: Params }) {
 
   const session = await getServerSession(authOptions);
 
-  const guildFetch = await fetch(
-    `https://discord.com/api/v10/users/@me/guilds`,
-    {
-      headers: {
-        // @ts-ignore
-        Authorization: `Bearer ${session?.accessToken}`,
-      },
+  const userRest = new REST({ authPrefix: "Bearer" }).setToken(session?.accessToken);
+
+  const guilds = await userRest
+  .get(Routes.userGuilds())
+  .then((res) => res as APIGuild[]);
+
+  let bodyContent = JSON.stringify({
+    "experiment_id": `${id}`,
+    "guild": {
+      "id": guilds[0].id,
+      "features": guilds[0].features,
     }
-  );
+  })
 
-  const guilds: APIGuild[] = await guildFetch.json();
-
-  const expFetch = await fetch(
-    `https://experiments.dscrd.workers.dev/experiments/${exp?.data.id}`
-  );
+  const expFetch = await fetch("https://dux.xhyrom.dev/v2/eligible", { 
+    method: "POST",
+    body: bodyContent,
+    headers: {
+      "Accept": "*/*",
+      "Content-Type": "application/json"
+     },
+  });
+  
   const expInfo = await expFetch.json();
+  console.log(expInfo)
   let expFeatures: any[] = [];
 
   if (
