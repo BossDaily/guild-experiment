@@ -82,27 +82,6 @@ export default async function Home({ params }: { params: Params }) {
   }
 
   let guildsWithExperiment: APIGuild[] = [];
-  let guildMightHaveExperiment: APIGuild[] = [];
-
-  if (guilds && typeof guilds[Symbol.iterator] === "function") {
-    await Promise.all(
-      guilds.map(async (guild) => {
-        // @ts-ignore
-        const gldCheck = await checkGuild(exp?.data.id, guild.id);
-        // @ts-ignore
-        if (gldCheck.valid == true) {
-          guildMightHaveExperiment.push(guild);
-          if (expFeatures.length == 0) {
-            guildsWithExperiment.push(guild);
-          } else if (
-            guild.features.some((feat) => expFeatures.includes(feat))
-          ) {
-            guildsWithExperiment.push(guild);
-          }
-        }
-      })
-    );
-  }
 
   console.log(expFeatures);
   console.log(guilds.length);
@@ -124,20 +103,6 @@ export default async function Home({ params }: { params: Params }) {
             </div>
           )}
         </div>
-        <div className="self-center">
-          <Extra>
-          {guildMightHaveExperiment.length !== 0 ? (
-            <GuildContainer glds={guildMightHaveExperiment} />
-          ) : (
-            <div className="bg-gray-700 rounded-lg p-4">
-              <div className="text-white text-2xl overflow-hidden">
-                No guilds with this experiment
-              </div>
-            </div>
-          )}
-          </Extra>
-        </div>
-
         <h2 className="self-center text-white font-bold text-4xl">
           {guildsWithExperiment.length}/{guilds.length}
         </h2>
