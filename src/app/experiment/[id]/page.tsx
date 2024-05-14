@@ -27,7 +27,6 @@ const experimentData: () => Promise<Exp[]> = async () => {
 
 export default async function Home({ params }: { params: Params }) {
   const { id } = params;
-  
 
   const experiments = await experimentData();
 
@@ -38,53 +37,44 @@ export default async function Home({ params }: { params: Params }) {
 
   const session = await getServerSession(authOptions);
 
-  const userRest = new REST({ authPrefix: "Bearer" }).setToken(session?.accessToken);
-
+  const userRest = new REST({ authPrefix: "Bearer" }).setToken(
+    session?.accessToken
+  );
+  let guildsWithExperiment: APIGuild[] = [];
   const guilds = await userRest
-  .get(Routes.userGuilds())
-  .then((res) => res as APIGuild[]);
+    .get(Routes.userGuilds())
+    .then((res) => res as APIGuild[]);
 
-  let bodyContent = JSON.stringify({
-    "experiment_id": `${id}`,
-    "guild": {
-      "id": guilds[0].id,
-      "features": guilds[0].features,
+  for (const guild of guilds) {
+    let bodyContent = JSON.stringify({
+      experiment_id: `${id}`,
+      guild: {
+        id: guild.id,
+        features: guild.features,
+      },
+    });
+
+    const expFetch = await fetch("https://dux.xhyrom.dev/v2/eligible", {
+      method: "POST",
+      body: bodyContent,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const expInfo = await expFetch.json();
+    if (expInfo.status === 404 ) {
+      console.error("Error 404")
+      break;
     }
-  })
 
-  const expFetch = await fetch("https://dux.xhyrom.dev/v2/eligible", { 
-    method: "POST",
-    body: bodyContent,
-    headers: {
-      "Accept": "*/*",
-      "Content-Type": "application/json"
-     },
-  });
-  
-  const expInfo = await expFetch.json();
-  console.log(expInfo)
-  let expFeatures: any[] = [];
 
-  if (
-    "rollout" in expInfo &&
-    typeof expInfo.rollout.populations[Symbol.iterator] === "function"
-  ) {
-    await Promise.all(
-      expInfo.rollout.populations.map(async (pop: any) => {
-        pop.filters.map((feat: any) => {
-          if (feat.type == "feature") {
-            if (feat.features[0] !== "COMMUNITY")
-              expFeatures.push(feat.features[0]);
-          }
-        });
-      })
-    );
+    if (expInfo.eligible) {
+      guildsWithExperiment.push(guild);
+    }
+
   }
 
-  let guildsWithExperiment: APIGuild[] = [];
-
-  console.log(expFeatures);
-  console.log(guilds.length);
   return (
     <div>
       <NavBar />
