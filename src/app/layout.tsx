@@ -1,9 +1,7 @@
 import "./globals.css";
 
-import FlowbiteProvider from "./flowbiteprovider";
 import Provider from "./provider";
-import { Flowbite } from "flowbite-react";
-import { customtheme as theme } from "../app/theme";
+import { ThemeModeScript } from "flowbite-react";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -23,10 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <ThemeModeScript />
+      </head>
       <body className="bg-shark-900">
-        <FlowbiteProvider>
           <Provider>{children}</Provider>
-        </FlowbiteProvider>
       </body>
     </html>
   );
